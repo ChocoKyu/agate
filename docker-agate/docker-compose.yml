@@ -1,0 +1,46 @@
+version: "3"
+
+services:
+  web:
+    container_name: agate_container_nginx
+    image: nginx:latest
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./web:/var/www/html  
+      - ./conf.d:/etc/nginx/conf.d 
+    
+  php:
+    container_name: agate_container_php
+    build: php
+    restart: always
+    volumes:
+      - ./web:/var/www/html
+
+  database:
+      container_name: agate_container_database
+      image: mysql:8.0
+      command: --default-authentication-plugin=mysql_native_password
+      environment:
+        MYSQL_ROOT_PASSWORD: mdp_atip
+        MYSQL_DATABASE: atipdb
+        MYSQL_USER: atip
+        MYSQL_PASSWORD: mdp_atip
+      ports:
+        - '3306:3306'
+      volumes:
+        - ./mysql:/var/lib/mysql
+
+  phpmyadmin:
+      container_name: agate_container_phpmyadmin
+      image: phpmyadmin
+      restart: always
+      ports:
+        - '8080:80'
+      environment:
+        - PMA_ARBITRARY=1
+        - PMA_HOST=agate_container_database
+
+

@@ -1,0 +1,73 @@
+.navbar-toggler{
+    border: none!important;
+    outline: none!important;
+}
+.navbar{
+    background: #E8FBFA;
+}
+.navbar-collapse{
+    text-align: center;
+}
+.navbar-brand{
+    color: teal;
+}
+.nav-link{
+    margin: 0;
+}
+.btn{
+    color: #f0f0f0;
+    background-color: #03a6a6;
+    border-color: #f0f0f0;
+}
+.btn:hover{
+    background-color: #f0f0f0;
+    color: #03a6a6;
+    border-color: #03a6a6;
+}
+h1{
+    text-align: center;
+    color: #000;
+    font-size: 500%;
+    text-shadow: #03a6a6 0.02em 0.02em 0.02em;
+}
+a:hover{
+    color: teal;
+}
+.titleUnderNavbar{
+    margin: 8% 0 5% 0;
+}
+#number{
+    color: #03a6a6;
+    background-color: #f0f0f0;
+    border-color: #03a6a6;
+}
+#number:hover{
+    background-color: #f0f0f0;
+    color: #03a6a6;
+    border-color: #03a6a6;
+}
+label{
+    color: #000;
+    font-size: 2vmin;
+}
+.centerDiv{
+    text-align: center;
+}
+thead{
+    background-color: #03a6a6;
+    color: #f0f0f0;
+    border: 1px solid #03a6a6;
+}
+table{
+    border: 1px solid #03a6a6;
+    margin: 4% 5% 0 5%;
+}
+.submitMarge{
+    margin: 5% 0 0% 0;
+}
+td {
+    text-align: center;
+    /* center checkbox horizontally */
+    vertical-align: middle;
+    /* center checkbox vertically */
+  }
