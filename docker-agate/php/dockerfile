@@ -1,2 +1,7 @@
 FROM php:fpm
-RUN docker-php-ext-install pdo_mysql && docker-php-ext-enable pdo_mysql
+RUN apt-get update
+
+# Install PDO and PGSQL Drivers
+RUN apt-get install -y libpq-dev \
+  && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
+  && docker-php-ext-install pdo pdo_pgsql pgsql

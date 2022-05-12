@@ -1,14 +1,14 @@
 <?php
-    if(!isset($_POST['hiddenuserlogin']) || !isset($_POST['hiddenislogged'])) {
-        header("Location: http://".$_SERVER['SERVER_ADDR']."/portail.php");
-        die();
-    }
-    if(isset($_POST['hiddenislogged'])) {
-        if ($_POST['hiddenislogged'] == 'no') {
-            header("Location: http://".$_SERVER['SERVER_ADDR']."/portail.php");
-            die();
-        }
-    }
+    // if(!isset($_POST['hiddenuserlogin']) || !isset($_POST['hiddenislogged'])) {
+    //     header("Location: http://".$_SERVER['SERVER_ADDR']."/portail.php");
+    //     die();
+    // }
+    // if(isset($_POST['hiddenislogged'])) {
+    //     if ($_POST['hiddenislogged'] == 'no') {
+    //         header("Location: http://".$_SERVER['SERVER_ADDR']."/portail.php");
+    //         die();
+    //     }
+    // }
     $hiddensaphir_qrcodes = 'no';
     if (isset($_POST['hiddensaphir_qrcodes'])) {
         $hiddensaphir_qrcodes = $_POST['hiddensaphir_qrcodes'];
@@ -21,7 +21,7 @@
     if(isset($_POST['nombreAjout'])) { $nombreDeLignes = $_POST['nombreAjout']; } else {$nombreDeLignes = 0;}
 
     // connextion BDD avec fichier infos du credential
-    $credentials = fopen('../../credentials/credentials.cred', 'rb');
+    $credentials = fopen('../credentials/credentials.cred', 'rb');
     $credential_dict = array();
     while(!feof($credentials)){
         $ligne = fgets($credentials);
@@ -33,11 +33,12 @@
         $credential_dict[explode('=', $ligne)[0]] = $cred;
     }
     $hostname = $credential_dict['$hostname '];
-    $port = 5432;
-    $dbname = $credential_dict['$dbname2 '];
+    $port = $credential_dict['$port '];
+    $dbname = $credential_dict['$dbname '];
     $dbuser = $credential_dict['$dbuser '];
     $dbuserpass = $credential_dict['$dbuserpass '];
     $infosDB = "host=$hostname port=$port dbname=$dbname user=$dbuser password=$dbuserpass";
+    var_dump($infosDB);
     $dbconn = pg_connect($infosDB);
 
     if ($dbconn) {

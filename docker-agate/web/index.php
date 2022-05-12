@@ -1,14 +1,21 @@
 <?php
-    if(!isset($_POST['hiddenuserlogin']) || !isset($_POST['hiddenislogged'])) {
-        header("Location: http://".$_SERVER['SERVER_ADDR']."/portail.php");
-        die();
-    }
-    if(isset($_POST['hiddenislogged'])) {
-        if ($_POST['hiddenislogged'] == 'no') {
-            header("Location: http://".$_SERVER['SERVER_ADDR']."/portail.php");
-            die();
-        }
-    }
+    $_POST['hiddenuserlogin'] = "cslefebvre";
+    $_POST['hiddenislogged'] = true;
+    $_POST['hiddenuserlastname'] = "Lefebvre";
+    $_POST['hiddenuserfirstname'] = "Cassandra";
+    $_POST['hiddenuserid'] = "53";
+    $_POST['hiddenuserrole'] = "atip";
+
+    // if(!isset($_POST['hiddenuserlogin']) || !isset($_POST['hiddenislogged'])) {
+    //     header("Location: http://".$_SERVER['SERVER_ADDR']."/portail.php");
+    //     die();
+    // }
+    // if(isset($_POST['hiddenislogged'])) {
+    //     if ($_POST['hiddenislogged'] == 'no') {
+    //         header("Location: http://".$_SERVER['SERVER_ADDR']."/portail.php");
+    //         die();
+    //     }
+    // }
     $hiddensaphir_qrcodes = 'no';
     if (isset($_POST['hiddensaphir_qrcodes'])) {
         $hiddensaphir_qrcodes = $_POST['hiddensaphir_qrcodes'];

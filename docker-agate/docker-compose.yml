@@ -20,27 +20,23 @@ services:
       - ./web:/var/www/html
 
   database:
-      container_name: agate_container_database
-      image: mysql:8.0
-      command: --default-authentication-plugin=mysql_native_password
-      environment:
-        MYSQL_ROOT_PASSWORD: mdp_atip
-        MYSQL_DATABASE: atipdb
-        MYSQL_USER: atip
-        MYSQL_PASSWORD: mdp_atip
-      ports:
-        - '3306:3306'
-      volumes:
-        - ./mysql:/var/lib/mysql
+    container_name: agate_container_database
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: mdp_atip
+      POSTGRES_USER: atip
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
 
-  phpmyadmin:
-      container_name: agate_container_phpmyadmin
-      image: phpmyadmin
-      restart: always
-      ports:
-        - '8080:80'
-      environment:
-        - PMA_ARBITRARY=1
-        - PMA_HOST=agate_container_database
+  adminer:
+    container_name: agate_container_adminer
+    image: adminer
+    restart: always
+    ports: 
+      - 8080:8080
 
+    
 

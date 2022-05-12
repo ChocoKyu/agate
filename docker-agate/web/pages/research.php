@@ -1,15 +1,15 @@
 <?php
 
-    if(!isset($_POST['hiddenuserlogin']) || !isset($_POST['hiddenislogged'])) {
-        header("Location: http://".$_SERVER['SERVER_ADDR']."/portail.php");
-        die();
-    }
-    if(isset($_POST['hiddenislogged'])) {
-        if ($_POST['hiddenislogged'] == 'no') {
-            header("Location: http://".$_SERVER['SERVER_ADDR']."/portail.php");
-            die();
-        }
-    }
+    // if(!isset($_POST['hiddenuserlogin']) || !isset($_POST['hiddenislogged'])) {
+    //     header("Location: http://".$_SERVER['SERVER_ADDR']."/portail.php");
+    //     die();
+    // }
+    // if(isset($_POST['hiddenislogged'])) {
+    //     if ($_POST['hiddenislogged'] == 'no') {
+    //         header("Location: http://".$_SERVER['SERVER_ADDR']."/portail.php");
+    //         die();
+    //     }
+    // }
     $hiddensaphir_qrcodes = 'no';
     if (isset($_POST['hiddensaphir_qrcodes'])) {
         $hiddensaphir_qrcodes = $_POST['hiddensaphir_qrcodes'];
@@ -44,7 +44,7 @@
     }
 
     // connextion BDD avec fichier infos du credential
-    $credentials = fopen('../../credentials/credentials.cred', 'rb');
+    $credentials = fopen('../credentials/credentials.cred', 'rb');
     $credential_dict = array();
     while(!feof($credentials)){
         $ligne = fgets($credentials);
@@ -57,17 +57,15 @@
     }
     $hostname = $credential_dict['$hostname '];
     $port = 5432;
-    $dbname2 = $credential_dict['$dbname2 '];
-    $dbname0 = $credential_dict['$dbname0 '];
+    $dbname = $credential_dict['$dbname '];
     $dbuser = $credential_dict['$dbuser '];
     $dbuserpass = $credential_dict['$dbuserpass '];
-    $DBatip = "host=$hostname port=$port dbname=$dbname2 user=$dbuser password=$dbuserpass";
-    $DBpheno = "host=$hostname port=$port dbname=$dbname0 user=$dbuser password=$dbuserpass";
+    $DBatip = "host=$hostname port=$port dbname=$dbname user=$dbuser password=$dbuserpass";
     $DBconnAtip = pg_connect($DBatip);
 
-    function getUsernameFromUserid($userid, $DBpheno){
+    function getUsernameFromUserid($userid, $DBatip){
         $username = "";
-        $DBconnPheno = pg_connect($DBpheno);
+        $DBconnPheno = pg_connect($DBatip);
         $sql = "SELECT  firstname, lastname FROM userinfos WHERE userid = '".$userid."';";
         $res = pg_query($DBconnPheno, $sql);
         while ($row = pg_fetch_row($res)) {
@@ -237,8 +235,8 @@
                             <?php
                             foreach( $research['plantes'] as $infos){
                                 $infos = clean($infos);
-                                $mesures = statistiques(format($infos[13]), $measurements, $DBatip);
-                                var_dump($mesures);
+                                // $mesures = statistiques(format($infos[13]), $measurements, $DBatip);
+                                // var_dump($mesures);
                                 echo('<tr><td>'.format($infos[0]).'</td>');
                                 echo('<td>'.format($infos[1]).'</td>');
                                 echo('<td>'.format($infos[2]).'</td>');
@@ -250,7 +248,7 @@
                                 echo('<td>'.format($infos[8]).'</td>');
                                 echo('<td>'.format($infos[9]).'</td>');
                                 // echo('<td><button type="submit" name="submitStats"  onclick="drawChart(\''.implode("','", $mesures).'\')" class="btn btn-outline-info saphir-btn"><i class="fas fa-clipboard-list"></i></button></td>');
-                                echo('<td>'.getUsernameFromUserid($infos[10], $DBpheno).'</td>');
+                                echo('<td>'.getUsernameFromUserid($infos[10], $DBatip).'</td>');
                                 echo('<td>'.formatDate(format($infos[11])).'</td>');
                                 echo('<td>'.formatDate(format($infos[12])).'</td></tr>');
                             }
@@ -304,7 +302,7 @@
                                 echo('<td>'.format($infos[12]).'</td>');
                                 echo('<td>'.format($infos[13]).'</td>');
                                 echo('<td>'.format($infos[14]).'</td>');
-                                echo('<td>'.getUsernameFromUserid($infos[15], $DBpheno).'</td>');
+                                echo('<td>'.getUsernameFromUserid($infos[15], $DBatip).'</td>');
                                 echo('<td>'.formatDate(format($infos[16])).'</td>');
                                 echo('<td>'.formatDate(format($infos[17])).'</td></tr>');
                             }
